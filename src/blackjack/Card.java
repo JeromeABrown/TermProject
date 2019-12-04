@@ -19,7 +19,7 @@ public String getSuit(){
     return suit.PrintSuitText();
 }
 
-public String toString(){ //return String representation of Card
+public String toString(){ 
     return face + " of " + suit;
 }
 }
