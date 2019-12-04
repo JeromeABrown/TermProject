@@ -1,68 +1,66 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package blackjack;
 
-/**
- *
- * @author trick
- */
-/**
- * SYST 17796 Project Winter 2019 Base code.
- * Students can modify and extend to implement their game.
- * Add your name as a modifier and the date!
- */
+import java.util.Random;
+public class GroupOfCards {
 
+private Card[] deck;
+private static final Random random = new Random();
 
-import java.util.ArrayList;
-import java.util.Collections;
+private int currentCard; //index of next Card to be deal (0-51)
+private static int NUMBER_OF_CARDS = 52; //Constant number of cards
 
-/**
- * A concrete class that represents any grouping of cards for a Game.
- * HINT, you might want to subclass this more than once.
- * The group of cards has a maximum size attribute which is flexible for reuse.
- * @author dancye
- */
-public class GroupOfCards 
-{
-   
-    //The group of cards, stored in an ArrayList
-    private ArrayList <Card> cards;
-    private int size;//the size of the grouping
-    
-    public GroupOfCards(int givenSize)
-    {
-        size = givenSize;
-    }
-    
-    /**
-     * A method that will get the group of cards as an ArrayList
-     * @return the group of cards.
-     */
-    public ArrayList<Card> showCards()
-    {
-        return cards;
-    }
-    
-    public void shuffle()
-    {
-        Collections.shuffle(cards);
-    }
+public GroupOfCards(){
 
-    /**
-     * @return the size of the group of cards
-     */
-    public int getSize() {
-        return size;
-    }
+    Face [] faces = {Face.ACE, Face.DEUCE, Face.THREE, Face.FOUR, Face.FIVE, Face.SIX,
+                     Face.SEVEN, Face.EIGHT, Face.NINE, Face.TEN, Face.JACK, Face.QUEEN,
+                     Face.KING};
+    Suit[] suits = {Suit.HEARTS, Suit.SPADES, Suit.DIAMONDS, Suit.CLUBS};
 
-    /**
-     * @param givenSize the max size for the group of cards
-     */
-    public void setSize(int givenSize) {
-        size = givenSize;
+    deck = new Card [NUMBER_OF_CARDS]; // create array with Cards (52)
+    currentCard = 0;
+
+    //Populate deck with Cards
+    for(int count = 0; count < deck.length; count++)
+        deck [count] = new Card(faces [count % 13], suits [count / 13]);
+}
+
+public void shuffleDeck(){
+    currentCard = 0;
+
+    for (int first = 0; first < deck.length; first++){
+
+        int second = random.nextInt(NUMBER_OF_CARDS); //Select a random card from number 0-51 (Number_of_cards)
+
+        //Loops through all the cards and swaps it with the "Second" card which is randomly chosen card from hte same list.
+        Card temp = deck[first];
+        deck [first] = deck [second];
+        deck [second] = temp;
     }
-    
-}//end class
+}
+
+public void getCardGroup(){
+    int start = 1;
+    for(Card k : deck) {
+        System.out.println("" + start + "/52 " + k);
+        start++;
+    }
+}
+
+public Card dealNextCard(){
+
+    //Get the top card
+    Card topCard = this.deck[0];
+
+    //shift all the subsequent cards to the left by one index
+    for(int currentCard = 1; currentCard < NUMBER_OF_CARDS; currentCard ++){
+        this.deck[currentCard-1] = this.deck[currentCard];
+    }
+    this.deck[NUMBER_OF_CARDS-1] = null;
+
+    //decrement the number of cards in our deck
+    this.NUMBER_OF_CARDS--;
+
+    return topCard;
+}
+}
