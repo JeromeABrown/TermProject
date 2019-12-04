@@ -85,4 +85,16 @@ public class Game
         } while (stay);
     }
 }
+
+ public static boolean checkLength(String pAnswer)
+    {
+        if(pAnswer.length()>=1 && pAnswer.length() <=12)
+        {
+            return true;
+        }
+        return false;
+    }
+   
 }
+
+

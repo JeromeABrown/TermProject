@@ -48,5 +48,34 @@ public class GameTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+     @Test
+    public void testCheckLengthGood() {
+        System.out.println("checkLength Good test");
+        String pAnswer = "jeromeab";
+        boolean expResult = true;
+        boolean result = Game.checkLength(pAnswer);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+    @Test
+    public void testCheckLengthBad() {
+        System.out.println("checkLength Bad test case");
+        String pAnswer = "a";
+        boolean expResult = false;
+        boolean result = Game.checkLength(pAnswer);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
+    @Test
+    public void testCheckLengthBoundary() {
+        System.out.println("checkLength Boundary");
+        String pAnswer = "";
+        boolean expResult = false;
+        boolean result = Game.checkLength(pAnswer);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
+    }
 }
